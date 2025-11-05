@@ -11,6 +11,25 @@ A full-featured Spring Boot web application for managing tasks and users, with M
 - MySQL database integration
 - Secure authentication with Spring Security
 
+## Frontend Details
+The frontend is built using [Thymeleaf](https://www.thymeleaf.org/) templating engine, providing dynamic HTML rendering and seamless integration with Spring Boot. Key highlights:
+- **Responsive Design:** Custom CSS ensures the app works well on desktop and mobile devices.
+- **Sidebar Navigation:** Modular sidebar fragment for easy navigation between dashboard, tasks, and profile.
+- **Dark Mode:** Toggle switch in the sidebar instantly switches between light and dark themes using CSS variables and JavaScript.
+- **Interactive UI:** JavaScript enhances user experience with sidebar toggling, search, and dark mode.
+- **Form Validation:** Registration and login forms include client-side validation for better usability.
+- **Asset Management:** Static resources (CSS, JS, images) are organized for maintainability and performance.
+
+## Backend Details
+The backend is powered by [Spring Boot](https://spring.io/projects/spring-boot), following best practices for scalable and secure web applications:
+- **RESTful Controllers:** Separate controllers for authentication, user, task, and page management.
+- **Service Layer:** Business logic is encapsulated in service classes for clean separation of concerns.
+- **Repository Layer:** Uses Spring Data JPA repositories for easy database access and query methods.
+- **Security:** Implements Spring Security for authentication, password hashing (BCrypt), and role-based access control.
+- **Exception Handling:** Global exception handler provides meaningful error responses and improves robustness.
+- **Database Integration:** Connects to MySQL using JPA/Hibernate, with automatic schema updates and entity mapping.
+- **Unit & Integration Tests:** Includes JUnit tests for services and controllers to ensure reliability.
+
 ## Getting Started
 
 ### Prerequisites
@@ -55,4 +74,3 @@ A full-featured Spring Boot web application for managing tasks and users, with M
 
 ## License
 MIT
-

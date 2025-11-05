@@ -62,6 +62,11 @@ public class TaskService {
 		taskRepository.delete(task);
 	}
 
+	public void deleteAllCompletedTasks() {
+		List<Task> completedTasks = getCompletedTasks();
+		taskRepository.deleteAll(completedTasks);
+	}
+
 	public List<Task> getPendingTasks() {
 		List<Task> allTasks = getAllTasks();
 		return allTasks.stream().filter(task -> !task.isCompleted()).toList();

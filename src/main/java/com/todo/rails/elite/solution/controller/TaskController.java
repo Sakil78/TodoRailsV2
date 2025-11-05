@@ -136,4 +136,14 @@ public class TaskController {
 			return ResponseEntity.notFound().build();
 		}
 	}
+
+	@PostMapping("/completed/deleteAll")
+	public ModelAndView deleteAllCompletedTasks() {
+		try {
+			taskService.deleteAllCompletedTasks();
+			return new ModelAndView("redirect:/tasks");
+		} catch (Exception exception) {
+			return new ModelAndView("redirect:/tasks");
+		}
+	}
 }
