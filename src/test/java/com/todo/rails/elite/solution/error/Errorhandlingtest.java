@@ -13,27 +13,25 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
-
 // TODO 14: Test Error Scenarios. Write tests to ensure meaningful error responses for missing tasks or invalid operations.
-class ErrorHandlingTests {
+class Errorhandlingtest {
 
-	@Mock
-	private TaskRepository taskRepository;
+    @Mock
+    private TaskRepository taskRepository;
+    @InjectMocks
+    private TaskService taskService;
 
-	@InjectMocks
-	private TaskService taskService;
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
+    }
 
-	@BeforeEach
-	void setUp() {
-		MockitoAnnotations.openMocks(this);
-	}
+    @Test
+    void getTaskById_NotFound() {
+        when(taskRepository.findById(1L)).thenReturn(Optional.empty());
 
-	@Test
-	void getTaskById_NotFound() {
-		when(taskRepository.findById(1L)).thenReturn(Optional.empty());
+        Exception exception = assertThrows(RuntimeException.class, () -> taskService.getTaskById(1L));
 
-		Exception exception = assertThrows(RuntimeException.class, () -> taskService.getTaskById(1L));
-
-		assertEquals("Task not found", exception.getMessage());
-	}
+        assertEquals("Task not found", exception.getMessage());
+    }
 }

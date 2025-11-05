@@ -80,24 +80,24 @@ public class SecurityConfig {
 	 * configured security filter chain.
 	 * @throws Exception if an error occurs during the security configuration process.
 	 *
-	 *                   <h3>Key Features:</h3>
-	 *                   <ul>
-	 *                     <li><strong>Public Resources:</strong> Grants public access to static resources
-	 *                         like CSS, JavaScript, images, and the registration page.</li>
-	 *                     <li><strong>Authentication:</strong> Requires authentication for all other requests.</li>
-	 *                     <li><strong>Login:</strong> Configures a custom login page at <code>/login</code>
-	 *                         and redirects to the homepage upon successful login.</li>
-	 *                     <li><strong>Logout:</strong> Provides a logout URL (<code>/logout</code>)
-	 *                         that clears the session and cookies, redirecting users to the login page.</li>
-	 *                     <li><strong>CSRF Protection: WARNING!</strong> Disables CSRF protection to simplify
-	 *                         API usage (not recommended for production).</li>
-	 *                     <li><strong>HTTP Basic Authentication:</strong> Disables HTTP Basic
-	 *                         authentication in favor of form-based login.</li>
-	 *                   </ul>
+	 * <h3>Key Features:</h3>
+	 * <ul>
+	 *   <li><strong>Public Resources:</strong> Grants public access to static resources
+	 *       like CSS, JavaScript, images, and the registration page.</li>
+	 *   <li><strong>Authentication:</strong> Requires authentication for all other requests.</li>
+	 *   <li><strong>Login:</strong> Configures a custom login page at <code>/login</code>
+	 *       and redirects to the homepage upon successful login.</li>
+	 *   <li><strong>Logout:</strong> Provides a logout URL (<code>/logout</code>)
+	 *       that clears the session and cookies, redirecting users to the login page.</li>
+	 *   <li><strong>CSRF Protection: WARNING!</strong> Disables CSRF protection to simplify
+	 *       API usage (not recommended for production).</li>
+	 *   <li><strong>HTTP Basic Authentication:</strong> Disables HTTP Basic
+	 *       authentication in favor of form-based login.</li>
+	 * </ul>
 	 *
-	 *                   <p><strong>Note:</strong> This configuration is designed for demonstration or
-	 *                   educational purposes and should be adjusted for production environments,
-	 *                   particularly with regard to CSRF protection.</p>
+	 * <p><strong>Note:</strong> This configuration is designed for demonstration or
+	 * educational purposes and should be adjusted for production environments,
+	 * particularly with regard to CSRF protection.</p>
 	 */
 	@Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -105,20 +105,16 @@ public class SecurityConfig {
 				.authorizeHttpRequests(
 						auth -> auth
 								// TODO 1: enforce authentication
-								//  permit the /css/** , /js/** , /images/** URLS to all users
-								.requestMatchers("/css/**").permitAll()
-								.requestMatchers("/js/**").permitAll()
-								.requestMatchers("/images/**").permitAll()
-
+								// permit the /css/** , /js/** , /images/** URLS to all users
+								.requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
 
 								// TODO 2: make /login and /register publicly accessible
-								.requestMatchers("/register").permitAll()
+								.requestMatchers("/login", "/register").permitAll()
 
-
-								//  permit the /api/tasks/** to all users (NOT RECOMMENDED)
+								// permit the /api/tasks/** to all users (NOT RECOMMENDED)
 								.requestMatchers("/api/tasks/**").permitAll()
 
-								//  authenticate all other requests
+								// authenticate all other requests
 								.anyRequest().authenticated()
 				)
 				.formLogin(
@@ -155,13 +151,13 @@ public class SecurityConfig {
 	 * a secure and reliable manner.</p>
 	 *
 	 * @return a {@link BCryptPasswordEncoder} object configured with a
-	 * strength value of 13.
+	 * strength value of 4.
 	 *
 	 * <h3>Key Details:</h3>
 	 * <ul>
 	 *   <li><strong>BCrypt Algorithm:</strong> A widely used and secure
 	 *       algorithm designed for password hashing, resistant to brute-force attacks.</li>
-	 *   <li><strong>Strength Parameter:</strong> Configured with a strength of 13,
+	 *   <li><strong>Strength Parameter:</strong> Configured with a strength of 4,
 	 *       which determines the computational complexity of the hashing process.
 	 *       Higher values make it more secure but require more processing power.</li>
 	 * </ul>
@@ -170,8 +166,8 @@ public class SecurityConfig {
 	 * user passwords in authentication and security configurations.</p>
 	 */
 	@Bean
-	BCryptPasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder(PASSWORD_ENCODER_STRENGTH);
+	public BCryptPasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
 	}
 
 	/**

@@ -18,32 +18,30 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 // TODO 13: Write Integration Tests for Controllers. Use MockMvc to test endpoints in TaskController.
 @WebMvcTest(TaskController.class)
 class TaskControllerTests {
 
-	@Autowired
-	private MockMvc mockMvc;
+    @Autowired
+    private MockMvc mockMvc;
 
-	@Mock
-	private TaskService taskService;
+    @Mock
+    private TaskService taskService;
 
-	private Task sampleTask;
+    private Task sampleTask;
 
-	@BeforeEach
-	void setUp() {
-		MockitoAnnotations.openMocks(this);
-		sampleTask = new Task("Sample Task", "This is a sample task.", false, LocalDate.now());
-	}
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
+        sampleTask = new Task("Sample Task", "This is a sample task.", false, LocalDate.now());
+    }
 
-	@Test
-	void getAllTasks_Success() throws Exception {
-		when(taskService.getAllTasks()).thenReturn(List.of(sampleTask));
-
-		mockMvc.perform(get("/api/tasks/all")
-						.contentType(MediaType.APPLICATION_JSON))
-				.andExpect(status().isOk())
-				.andExpect(jsonPath("$[0].title").value("Sample Task"));
-	}
+    @Test
+    void getAllTasks_Success() throws Exception {
+        when(taskService.getAllTasks()).thenReturn(List.of(sampleTask));
+        mockMvc.perform(get("/api/tasks/all")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].title").value("Sample Task"));
+    }
 }

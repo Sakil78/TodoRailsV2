@@ -32,7 +32,8 @@ public class UserService {
 		}
 		String password = user.getPassword();
 		// TODO 7: enable password encoder in user service
-		user.setPassword(passwordEncoder.encode(password));
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		user.setRoles("ROLE_USER");
 		return userRepository.save(user);
 	}
 
